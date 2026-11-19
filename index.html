@@ -1,0 +1,120 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Blind Year</title>
+<meta name="description" content="A daily 90-second market puzzle. Same secret year for everyone, valuations only, no dates.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Newsreader:opsz,wght@6..72,400;6..72,600;6..72,700&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+<div class="app">
+  <header class="masthead">
+    <div class="brand"><span class="mark" aria-hidden="true">▮</span>Blind Year</div>
+    <div class="meta">
+      <span id="puzzle-tag"></span>
+      <button class="link" id="album-btn" type="button">Album <span id="album-count"></span></button>
+    </div>
+  </header>
+  <div class="dateline" aria-label="The date is hidden">
+    <span>Your date:</span>
+    <span class="redact" id="dateline"><i>████████</i> <i>████</i></span>
+  </div>
+
+  <!-- Intro -->
+  <section class="screen" id="intro" hidden>
+    <h1>One secret month.<br>Ten years. No dates.</h1>
+    <p class="lede">Everyone today drops into the same hidden month from 140 years of the US stock market. You see only what investors saw: valuations, rates and inflation. No prices, no headlines, no calendar.</p>
+    <ol class="rules">
+      <li><b>5 moves.</b> Split $10,000 between stocks, bonds and a mattress. Each move is locked for 2 years.</li>
+      <li><b>Real money.</b> Everything is scored after inflation, so cash under the mattress can lose.</li>
+      <li><b>Beat 60/40.</b> Each move is graded against a plain 60% stocks / 40% bonds mix.</li>
+    </ol>
+    <div class="row">
+      <button class="primary" id="start-btn" type="button">Play today’s year</button>
+      <button class="ghost" id="practice-btn" type="button">Practice a random year</button>
+    </div>
+    <p class="fine" id="streak-line"></p>
+  </section>
+
+  <!-- A move -->
+  <section class="screen" id="round" hidden>
+    <div class="round-head">
+      <div>
+        <div class="kicker" id="round-kicker"></div>
+        <div class="value" id="round-value"></div>
+        <div class="sub" id="round-sub"></div>
+      </div>
+      <svg class="spark" id="round-spark" viewBox="0 0 120 40" preserveAspectRatio="none" aria-hidden="true"></svg>
+    </div>
+
+    <h2 class="section-label">What the market looks like right now</h2>
+    <div class="clues" id="clues"></div>
+
+    <h2 class="section-label">Your mix for the next 2 years</h2>
+    <div class="split" id="split">
+      <div class="seg seg-s" id="seg-s"><span></span></div>
+      <div class="seg seg-b" id="seg-b"><span></span></div>
+      <div class="seg seg-c" id="seg-c"><span></span></div>
+      <div class="handle" id="h1" role="slider" tabindex="0" aria-label="Stocks and bonds boundary"></div>
+      <div class="handle" id="h2" role="slider" tabindex="0" aria-label="Bonds and mattress boundary"></div>
+    </div>
+    <div class="legend">
+      <span><i class="dot s"></i>Stocks <b id="pct-s"></b></span>
+      <span><i class="dot b"></i>10-yr bonds <b id="pct-b"></b></span>
+      <span><i class="dot c"></i>Mattress <b id="pct-c"></b></span>
+    </div>
+    <div class="presets" id="presets"></div>
+    <button class="primary wide" id="lock-btn" type="button">Lock in for 2 years</button>
+  </section>
+
+  <!-- After a move -->
+  <section class="screen" id="interlude" hidden>
+    <div class="kicker" id="int-kicker"></div>
+    <div class="value" id="int-value"></div>
+    <svg class="chart" id="int-chart" viewBox="0 0 640 240" aria-hidden="true"></svg>
+    <table class="returns" id="int-table"></table>
+    <p class="verdict" id="int-verdict"></p>
+    <button class="primary wide" id="next-btn" type="button"></button>
+  </section>
+
+  <!-- Reveal -->
+  <section class="screen" id="reveal" hidden>
+    <div class="kicker">The year was</div>
+    <h1 class="reveal-date" id="rev-date"></h1>
+    <div class="era">
+      <div class="era-name" id="rev-era"></div>
+      <p id="rev-blurb"></p>
+    </div>
+    <div class="squares" id="rev-squares" aria-label="Move grades"></div>
+    <svg class="chart" id="rev-chart" viewBox="0 0 640 260" aria-hidden="true"></svg>
+    <div class="chart-key" id="rev-key"></div>
+    <table class="finals" id="rev-table"></table>
+    <p class="fine" id="rev-note"></p>
+    <div class="row">
+      <button class="primary" id="share-btn" type="button">Copy result</button>
+      <button class="ghost" id="again-btn" type="button">Practice a random year</button>
+    </div>
+    <p class="fine" id="share-status" role="status"></p>
+  </section>
+
+  <!-- Album -->
+  <dialog id="album">
+    <div class="album-head">
+      <h2>Era album</h2>
+      <button class="link" id="album-close" type="button">Close</button>
+    </div>
+    <p class="fine">Every era you land in gets stamped here. Practice years count.</p>
+    <div class="album-grid" id="album-grid"></div>
+  </dialog>
+
+  <footer class="foot">Data: Robert Shiller, via datasets/s-and-p-500 (public domain). Bonds are modeled as a rolling 10-year Treasury; the mattress earns 0%. Not investment advice.</footer>
+</div>
+<script src="data.js"></script>
+<script src="engine.js"></script>
+<script src="ui.js"></script>
+</body>
+</html>
